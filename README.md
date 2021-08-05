@@ -9,6 +9,5 @@
  
  # Docker Images
  We use makefiles to organize the code compilation.
- `d`
  
  
