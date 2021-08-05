@@ -1,0 +1,46 @@
+version: '3'
+services:
+  ionic:
+    # image: mobiroad-build
+    image: ionic-serve
+    ports:
+      - 8100:8100
+      - 9229:9229 #DEBUG PORT
+      # HOT RELOADING
+    volumes:
+      - ./Ionic/:/ionic/
+      - nodemodules:/ionic/node_modules
+
+  nodejs-api:
+    image: nodesjs-api
+    restart: always
+    ports:
+      # - '8080:3000'
+      - '3000:3000'
+
+    depends_on:
+      - db
+    volumes:
+      - ./NodeJs Api/:/nodesjs-api
+      - nodemodules-api:/nodesjs-api/node_modules
+
+  db:
+    # image: vlasis-postgis2
+    image: postgis-gr
+    environment:
+      POSTGRES_USER: ******
+      POSTGRES_PASSWORD: ******
+      POSTGRES_DB: *******
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - postgres-backups:/var/lib/docker/volumes/backups
+
+volumes:
+  postgres-data:
+    driver: local
+  postgres-backups:
+    driver: local
+  nodemodules: {}
+  nodemodules-api: {}

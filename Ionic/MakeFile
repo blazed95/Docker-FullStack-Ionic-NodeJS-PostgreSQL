@@ -1,0 +1,16 @@
+# docker-build-ionic-build: 
+# 	docker build -t ionic-build .
+	
+docker-build-ionic-serve: 
+	docker build -t ionic-serve .
+
+
+# docker-run-ionic-build: 
+# 	docker run --name ionic-container-build -d -p 8100:80 ionic-build
+
+
+docker-run-ionic-serve: 
+	docker run --name ionic-container-serve -d -p 8100:8100 ionic-serve
+
+# docker-run-ionic-serve-wVolumes: 
+# 		docker run -it -v ${PWD}:/ionic -v /ionic/node_modules -p 8100:8100 --rm ionic-serve

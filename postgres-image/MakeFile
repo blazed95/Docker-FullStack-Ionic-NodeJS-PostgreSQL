@@ -1,0 +1,2 @@
+postgis-build:
+docker build -t postgis-gr .

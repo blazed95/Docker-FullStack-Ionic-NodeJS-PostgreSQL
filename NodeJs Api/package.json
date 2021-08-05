@@ -1,0 +1,13 @@
+{
+  "name": "nodesjs-api",
+  "version": "0.0.1",
+  "description": "RESTful API with Node.js, Express, and PostgreSQL",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
