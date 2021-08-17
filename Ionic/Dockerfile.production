@@ -1,0 +1,22 @@
+# # Ionic with build
+
+FROM node:13-alpine as build
+WORKDIR /ionic
+COPY ./client/package.json ./
+RUN npm install
+RUN npm install -g @ionic/cli
+COPY ./client .
+RUN ionic build --prod
+
+# FROM nginx:alpine
+# RUN rm -rf /usr/share/nginx/html/*
+# COPY --from=build /ionic/www/ /usr/share/nginx/html/
+
+FROM caddy:2.4.3-alpine
+ARG CADDYFILE 
+COPY ${CADDYFILE} /etc/caddy/CADDYFILE
+
+COPY --from=build /ionic/www/ /srv/
+
+EXPOSE 80
+EXPOSE 443

@@ -1,0 +1,29 @@
+version: '3'
+services:
+  ionic:
+    image: ionic-app-production
+    restart: unless-stopped
+    # is a command in Unix and Unix-like operating systems to print the file name of the terminal connected to standard input. docker run -it
+    stdin_open: true
+    tty: true
+
+    container_name: ionic-container-serve
+    ports:
+      - '80:80' #HTTP
+      - '443:443' #HTTPs
+  nodejs-api:
+    image: nodesjs-api
+    restart: unless-stopped
+    container_name: nodesjs-container-api
+    restart: always
+    ports:
+      - '3000:3000'
+
+
+volumes:
+  postgres-data:
+    driver: local
+  postgres-backups:
+    driver: local
+  nodemodules: {}
+  nodemodules-api: {}

@@ -1,0 +1,10 @@
+www.myapplication.gr:443 {
+  tls vlasis.ioannidis@gmail.com
+  root * /srv
+  route {
+    reverse_proxy /api* nodejs-api:3000
+    try_files {path} {path}/ /index.html
+    file_server 
+  }
+
+}

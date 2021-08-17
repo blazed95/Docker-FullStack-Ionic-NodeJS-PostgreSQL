@@ -1,16 +1,37 @@
-# docker-build-ionic-build: 
-# 	docker build -t ionic-build .
-	
-docker-build-ionic-serve: 
-	docker build -t ionic-serve .
+##### Production
+
+docker-build-ionic-production:
+	docker build -t ionic-app-production -f Dockerfile.production .
+
+	docker build \
+		-t ionic-app-production  \
+		--build-arg CADDYFILE = Caddyfile.production  \
+		--build-arg BASE_URL=https://www.myapplication.gr/api   \
+		-f Dockerfile.production .
 
 
-# docker-run-ionic-build: 
-# 	docker run --name ionic-container-build -d -p 8100:80 ionic-build
+
+docker-run-ionic-production: 
+	docker run --name ionic-container-production -d -p 8100:80 ionic-app-production
+
+##### Development 
+
+docker-build-ionic-dev: 
+	docker build -t ionic-app-dev .
+
+docker-run-ionic-dev: 
+	docker run --name ionic-container-dev -d -p 8100:8100 ionic-app-dev
 
 
-docker-run-ionic-serve: 
-	docker run --name ionic-container-serve -d -p 8100:8100 ionic-serve
+###### Local
+
+docker-build-ionic-local:
+	docker build \
+		-t ionic-app-production:local  \
+		--build-arg CADDYFILE = Caddyfile.local  \
+		--build-arg BASE_URL=http://localhost:3000/api  \
+		-f Dockerfile.production .
+
 
 # docker-run-ionic-serve-wVolumes: 
 # 		docker run -it -v ${PWD}:/ionic -v /ionic/node_modules -p 8100:8100 --rm ionic-serve

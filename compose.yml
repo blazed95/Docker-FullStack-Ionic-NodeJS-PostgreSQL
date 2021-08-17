@@ -1,18 +1,24 @@
 version: '3'
 services:
   ionic:
+    # build:  
+      #   context: .
+      #   dockerfile: Dockerfile-alternate
+      #   container_name: ionic-container-build
     # image: mobiroad-build
     image: ionic-serve
+    container_name: ionic-container-serve
     ports:
       - 8100:8100
       - 9229:9229 #DEBUG PORT
       # HOT RELOADING
     volumes:
-      - ./Ionic/:/ionic/
+      - ./Ionic/src/:/ionic/
       - nodemodules:/ionic/node_modules
-
+      # - /ionic/node_modules
   nodejs-api:
     image: nodesjs-api
+    container_name: nodesjs-container-api
     restart: always
     ports:
       # - '8080:3000'
@@ -23,10 +29,10 @@ services:
     volumes:
       - ./NodeJs Api/:/nodesjs-api
       - nodemodules-api:/nodesjs-api/node_modules
-
+      # - /nodesjs-api/node_modules
   db:
-    # image: vlasis-postgis2
     image: postgis-gr
+    container_name: postgis-gr-container
     environment:
       POSTGRES_USER: ******
       POSTGRES_PASSWORD: ******
